@@ -23,8 +23,6 @@ function BookFeature(props) {
       const bookList = await bookApi.getAll(params);
       setPage(bookList['meta'].current_page)
       setBooks(bookList['books'])
-
-      console.log(bookList);
     };
     fetchBook();
   }, [page]);

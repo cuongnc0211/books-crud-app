@@ -14,18 +14,20 @@ function ListPage(props) {
       <h3>Book List Page</h3>
 
       <table>
-        <thead>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Publisher</th>
-          <th>Genre</th>
-          <th>Action</th>
-        </thead>
         <tbody>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Genre</th>
+            <th>Action</th>
+          </tr>
           {
             books.map((book, index) => (
-              <BookItem book={book}></BookItem>
+              <tr key={book.id}>
+                <BookItem book={book}></BookItem>
+              </tr>
             ))
           }
         </tbody>
