@@ -13,19 +13,25 @@ function BookFeature(props) {
   const match = useRouteMatch();
   // const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
+  const [searchKeyword, setSearchKeyword] = useState('')
   const [books, setBooks] = useState([])
 
   useEffect(() => {
     const fetchBook = async() => {
       const params = {
           page: `${page}`,
+          q: `${searchKeyword}`
       };
       const bookList = await bookApi.getAll(params);
       setPage(bookList['meta'].current_page)
       setBooks(bookList['books'])
     };
     fetchBook();
-  }, [page]);
+  }, [page, searchKeyword]);
+
+  const handleOnFilter = (keyword) => {
+    setSearchKeyword(keyword)
+  }
 
   return (
     <div>
@@ -34,7 +40,7 @@ function BookFeature(props) {
       <Switch>
         <Route
           path={match.path}
-          component={() => <ListPage books={books}/>}
+          component={() => <ListPage books={books} handleFilter={handleOnFilter} />}
           exact
         />
         <Route path={`${match.path}/:bookId`} component={DetailPage}></Route>

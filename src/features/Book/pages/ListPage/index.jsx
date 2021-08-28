@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BookItem from '../../components/BookItem';
+import BookFilter from '../../components/BookFilter';
 
 ListPage.propTypes = {
-  books: PropTypes.array
+  books: PropTypes.array,
+  handleFilter: PropTypes.func
 };
 
 function ListPage(props) {
-  const {books} = props;
+  const {books, handleFilter} = props;
 
   return (
     <div>
       <h3>Book List Page</h3>
 
+      <BookFilter handleFilter={handleFilter} />
       <table>
         <tbody>
           <tr>
