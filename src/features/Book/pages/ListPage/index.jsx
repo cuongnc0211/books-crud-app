@@ -11,6 +11,8 @@ function ListPage(props) {
 
   return (
     <div>
+      <h3>Book List Page</h3>
+
       <table>
         <thead>
           <th>ID</th>

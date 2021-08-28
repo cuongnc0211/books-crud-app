@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useRouteMatch } from 'react-router-dom';
 
 BookItem.propTypes = {
   book: PropTypes.object.isRequired
@@ -7,6 +9,8 @@ BookItem.propTypes = {
 
 function BookItem(props) {
   const { book } = props;
+  const match = useRouteMatch();
+
   return (
     <tr key={book.id}>
       <td>{book.id}</td>
@@ -14,6 +18,7 @@ function BookItem(props) {
       <td>{book.author}</td>
       <td>{book.publisher}</td>
       <td>{book.genre}</td>
+      <td><Link to={`${match.path}/${book.id}`}>Detail</Link></td>
     </tr>
   );
 }
