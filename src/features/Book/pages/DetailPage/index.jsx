@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+// import PropTypes from 'prop-types';
 
-DetailPage.propTypes = {
+
+// DetailPage.propTypes = {
   
-};
+// };
 
 function DetailPage(props) {
   return (

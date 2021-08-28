@@ -11,13 +11,9 @@ import ListPage from './pages/ListPage';
 
 function BookFeature(props) {
   const match = useRouteMatch();
-  const [search, setSearch] = useState('')
+  // const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [books, setBooks] = useState([])
-
-  console.log(page)
-  console.log(search)
-  console.log(books)
 
   useEffect(() => {
     const fetchBook = async() => {
@@ -31,7 +27,7 @@ function BookFeature(props) {
       console.log(bookList);
     };
     fetchBook();
-  }, [search]);
+  }, [page]);
 
   return (
     <div>
