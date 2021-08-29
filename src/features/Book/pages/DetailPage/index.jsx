@@ -4,16 +4,16 @@ import bookApi from '../../../../api/bookApi';
 
 function DetailPage(props) {
   const params = useParams();
+  const id = params['bookId']
   const [book, setBook] = useState({});
 
   useEffect( () => {
-    
     const fetchBook = async() => {
-      const bookData = await bookApi.get(params['bookId']);
+      const bookData = await bookApi.get(id);
       setBook(bookData['book'])
     };
     fetchBook();
-  }, []);
+  }, [id]);
 
   return (
     <div>
