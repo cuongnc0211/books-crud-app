@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
-BookFilter.propTypes = {
-  handleFilter: PropTypes.func
-};
+import React, { useContext, useState } from 'react';
+import BookContext from '../../BookContext'
 
 function BookFilter(props) {
   const ENTER_KEY = 13
-  const {handleFilter} = props
-  const [keyword, setKeyword] = useState('');
+
+  const bookMeta = useContext(BookContext);
+  const [localKeyword, setLocalKeyword] = useState(bookMeta.searchKeyword)
+  console.log(`localKeyword: ${localKeyword}`)
 
   const handleChangeFilter = (value) => {
-    console.log(value)
-    setKeyword(value)
+    setLocalKeyword(value)
   };
 
   const triggerChange = () => {
-    handleFilter(keyword);
+    bookMeta.setPage(1);
+    bookMeta.setSearchKeyword(localKeyword);
   }
 
   const handleKeyDown = (e) => {
@@ -31,7 +29,7 @@ function BookFilter(props) {
       <input 
         type="text"
         name="filter"
-        value={keyword}
+        value={localKeyword}
         onChange={e => handleChangeFilter(e.target.value)}
         onKeyDown={e => handleKeyDown(e)}
       />

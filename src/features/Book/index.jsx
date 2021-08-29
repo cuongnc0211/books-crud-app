@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
-import bookApi from '../../api/bookApi';
+import { BookProvider } from './BookContext';
 import DetailPage from './pages/DetailPage';
 import ListPage from './pages/ListPage';
 
@@ -14,38 +14,27 @@ function BookFeature(props) {
   // const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [searchKeyword, setSearchKeyword] = useState('')
-  const [books, setBooks] = useState([])
 
-  useEffect(() => {
-    const fetchBook = async() => {
-      const params = {
-          page: `${page}`,
-          q: `${searchKeyword}`
-      };
-      const bookList = await bookApi.getAll(params);
-      setPage(bookList['meta'].current_page)
-      setBooks(bookList['books'])
-    };
-    fetchBook();
-  }, [page, searchKeyword]);
-
-  const handleOnFilter = (keyword) => {
-    setSearchKeyword(keyword)
+  const bookMeta = {
+    page: page,
+    setPage: setPage,
+    searchKeyword: searchKeyword,
+    setSearchKeyword: setSearchKeyword,
   }
 
   return (
-    <div>
+    <BookProvider value={bookMeta}>
       <h2>Book feature</h2>
 
       <Switch>
         <Route
           path={match.path}
-          component={() => <ListPage books={books} handleFilter={handleOnFilter} />}
+          component={ListPage}
           exact
         />
         <Route path={`${match.path}/:bookId`} component={DetailPage}></Route>
       </Switch>
-    </div>
+    </BookProvider>
   );
 }
 

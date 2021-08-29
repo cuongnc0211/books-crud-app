@@ -1,21 +1,37 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import BookItem from '../../components/BookItem';
+import React, { useContext, useEffect, useState } from 'react';
+import bookApi from '../../../../api/bookApi';
+import BookContext from '../../BookContext';
 import BookFilter from '../../components/BookFilter';
+import BookItem from '../../components/BookItem';
 
 ListPage.propTypes = {
   books: PropTypes.array,
-  handleFilter: PropTypes.func
 };
 
 function ListPage(props) {
-  const {books, handleFilter} = props;
+  const bookMeta = useContext(BookContext);
+  console.log(bookMeta)
+  const {page, searchKeyword} = bookMeta
+  const [books, setBooks] = useState([])
+
+  useEffect(() => {
+    const fetchBook = async() => {
+      const params = { 
+          page: `${page}`,
+          q: `${searchKeyword}`
+      };
+      const bookList = await bookApi.getAll(params);
+      setBooks(bookList['books'])
+    };
+    fetchBook();
+  }, [page, searchKeyword]);
 
   return (
     <div>
       <h3>Book List Page</h3>
 
-      <BookFilter handleFilter={handleFilter} />
+      <BookFilter />
       <table>
         <tbody>
           <tr>
